@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import { signInWithPopup, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { authen } from '../firebase-config'
 import { useAuthState } from 'react-firebase-hooks/auth';
+import AnimatedPage from "./AnimatedPage";
 
 function Home() {
   const navigate = useNavigate()
@@ -13,10 +14,10 @@ function Home() {
   const signInWithGitHub = () => {
     signInWithPopup(authen, providerGitHub)
     .then((res) => {
-        if(user) navigate('/articles')
-        else navigate('/')
+       navigate('/articles')
     })
     .catch((err) => {
+        navigate('/')
         console.log(err);
     })
   }
@@ -24,10 +25,10 @@ function Home() {
   const signInWithGoogle = () => {
     signInWithPopup(authen, providerGoogle)
     .then((res) => {
-        if(user) navigate('/articles')
-        else navigate('/')
+        navigate('/articles')
     })
     .catch((err) => {
+        navigate('/')
         console.log(err);
     })
   }
@@ -37,6 +38,8 @@ function Home() {
     }
 
   return (
+    <AnimatedPage>
+
     <div className='h-screen'>
         <div className=' flex items-center justify-center flex-col h-full'>
             <h1 className='text-5xl font-bold dark:text-white mb-5'>News Reporter</h1>
@@ -55,6 +58,8 @@ function Home() {
             </button>
         </div>
    </div>
+   </AnimatedPage>
+
   )
 }
 
